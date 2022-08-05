@@ -21,8 +21,8 @@ public class testMain {
 		//to save the order in arrays
 		int[] list = {numLaptop, numMouse, numDesktop, numLCD};
 		//to compute the total volume and weight of the shipment and the total volume of both containers
-		double totalVol = numLaptop * 0.6 * 0.5 * 0.5 + numMouse * 0.3 * 0.3 * 0.2 + 
-				numDesktop * 1 * 1.5 * 0.5 + numLCD * 1.2 * 1.4 * 0.8;
+		double totalVol = list[0] * 0.6 * 0.5 * 0.5 + list[1] * 0.3 * 0.3 * 0.2 + 
+				list[2] * 1 * 1.5 * 0.5 + list[3] * 1.2 * 1.4 * 0.8;
 		double totalWt = numLaptop * 6.5 + numMouse * 0.2 + numDesktop * 20 + numLCD * 2.6;
 		double den = totalWt / totalVol;
 		double volSmallContainer = 2.59 * 2.43 * 6.06;
