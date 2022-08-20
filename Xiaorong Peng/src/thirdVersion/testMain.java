@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import secondVersion.Container;
 import secondVersion.Item;
 
 public class testMain {
@@ -104,7 +105,7 @@ public class testMain {
 					
 					// the ok button allows to get length, radius, width, height
 					JButton ok = new JButton("ok");
-					ok.setBounds(280, 200, 60, 20);
+					ok.setBounds(280, 200, 80, 20);
 					panel.add(ok);
 					ok.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -115,6 +116,17 @@ public class testMain {
 								JTextField length = new JTextField();
 								length.setBounds(120, 240, 80, 20);
 								panel.add(length);
+								// to save length
+								JButton save = new JButton("save");
+								save.setBounds(280, 270, 80, 20);
+								save.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										double[] d = new double[1];
+										d[0] = Double.parseDouble(length.getText());
+										dimensions.add(d);
+									}
+								});
+								panel.add(save);
 							} else if (((String)shape.getSelectedItem()).equals("Rectangle") && Integer.parseInt((String)dimension.getSelectedItem()) == 3) {
 								JLabel getLength = new JLabel("length:");
 								getLength.setBounds(40, 240, 80, 20);
@@ -134,6 +146,19 @@ public class testMain {
 								JTextField height = new JTextField();
 								height.setBounds(120, 300, 80, 20);
 								panel.add(height);
+								// to save length
+								JButton save = new JButton("save");
+								save.setBounds(280, 330, 80, 20);
+								save.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										double[] d = new double[3];
+										d[0] = Double.parseDouble((String)length.getText());
+										d[1] = Double.parseDouble((String)width.getText());
+										d[2] = Double.parseDouble((String)height.getText());
+										dimensions.add(d);
+									}
+								});
+								panel.add(save);
 							} else if (((String)shape.getSelectedItem()).equals("Pentagon") && Integer.parseInt((String)dimension.getSelectedItem()) == 3) {
 								JLabel getLength = new JLabel("length:");
 								getLength.setBounds(40, 240, 80, 20);
@@ -153,19 +178,44 @@ public class testMain {
 								JTextField height = new JTextField();
 								height.setBounds(120, 300, 80, 20);
 								panel.add(height);
+								// to save length
+								JButton save = new JButton("save");
+								save.setBounds(280, 330, 80, 20);
+								save.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										double[] d = new double[3];
+										d[0] = Double.parseDouble((String)length.getText());
+										d[1] = Double.parseDouble((String)radius.getText());
+										d[2] = Double.parseDouble((String)height.getText());
+										dimensions.add(d);
+									}
+								});
+								panel.add(save);
 							} else if (((String)shape.getSelectedItem()).equals("Cylinder") && Integer.parseInt((String)dimension.getSelectedItem()) == 2) {
 								JLabel getRadius = new JLabel("radius:");
-								getRadius.setBounds(40, 270, 80, 20);
+								getRadius.setBounds(40, 240, 80, 20);
 								panel.add(getRadius);
 								JTextField radius = new JTextField();
-								radius.setBounds(120, 270, 80, 20);
+								radius.setBounds(120, 240, 80, 20);
 								panel.add(radius);
 								JLabel getHeight = new JLabel("height:");
-								getHeight.setBounds(40, 300, 80, 20);
+								getHeight.setBounds(40, 270, 80, 20);
 								panel.add(getHeight);
 								JTextField height = new JTextField();
-								height.setBounds(120, 300, 80, 20);
+								height.setBounds(120, 270, 80, 20);
 								panel.add(height);
+								// to save length
+								JButton save = new JButton("save");
+								save.setBounds(280, 300, 80, 20);
+								save.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										double[] d = new double[2];
+										d[0] = Double.parseDouble((String)radius.getText());
+										d[1] = Double.parseDouble((String)height.getText());
+										dimensions.add(d);
+									}
+								});
+								panel.add(save);
 							}
 						}
 					});
@@ -183,19 +233,7 @@ public class testMain {
 							itemWeight[j] = Double.parseDouble(weight.getText());
 							itemQuantity[j] = Integer.parseInt(quantity.getText());
 							itemShape[j] = (String)shape.getSelectedItem();
-							int dimSize = Integer.parseInt((String)dimension.getSelectedItem());
-							double[] d = new double[dimSize];
-							if (((String)shape.getSelectedItem()).equals("Cubic") && Integer.parseInt((String)dimension.getSelectedItem()) == 1) {
-								
-							} else if (((String)shape.getSelectedItem()).equals("Rectangle") && Integer.parseInt((String)dimension.getSelectedItem()) == 3) {
-								
-							} else if (((String)shape.getSelectedItem()).equals("Pentagon") && Integer.parseInt((String)dimension.getSelectedItem()) == 3) {
-								
-							} else if (((String)shape.getSelectedItem()).equals("Cylinder") && Integer.parseInt((String)dimension.getSelectedItem()) == 2) {
-								
-							}
 							frame.dispose();
-							//System.out.println(itemName[j]);
 							
 							if (j == Integer.parseInt(num.getText()) - 1){
 								JFrame frame1 = new JFrame("Total Volume and Total Weight");
@@ -207,16 +245,15 @@ public class testMain {
 								
 								Item[] items = new Item[Integer.parseInt(num.getText())];
 								for (int i = 0; i < items.length; i++) {
-									//items[i] = new Item(itemName[i], itemShape[i], dimensions.get(i), itemWeight[i], itemQuantity[i]);
-									items[i] = new Item(itemName[i], itemShape[i], itemWeight, itemWeight[i], itemQuantity[i]);
+									items[i] = new Item(itemName[i], itemShape[i], dimensions.get(i), itemWeight[i], itemQuantity[i]);
 								}
 								
 								// total volume
 								JLabel getTV = new JLabel("Total Volume:");
 								getTV.setBounds(80, 60, 100, 20);
 								panel1.add(getTV);
-								JLabel tV = new JLabel("kg");
-								tV.setBounds(220, 60, 100, 20);
+								JLabel tV = new JLabel(totalVolume(items) + " m*m*m");
+								tV.setBounds(220, 60, 150, 20);
 								tV.setForeground(Color.BLUE);
 								panel1.add(tV);
 								
@@ -232,9 +269,94 @@ public class testMain {
 								JButton next1 = new JButton("next");
 								next1.setBounds(280, 220, 80, 20);
 								panel1.add(next1);
-								next.addActionListener(new ActionListener() {
+								next1.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
+										// Identify shipping method
+										frame1.dispose();
+										JFrame frame2 = new JFrame("shipment");
+										frame2.setSize(400, 300);
 										
+										JPanel panel2 = new JPanel();
+										panel2.setLayout(null);
+										frame2.add(panel2);
+										
+										Container small = new Container ("small");
+										if (totalVolume(items) <= small.volume()) {
+											JLabel getshipment = new JLabel("Shipment:");
+											getshipment.setBounds(80, 60, 100, 20);
+											panel2.add(getshipment);
+											JLabel shipment = new JLabel("1 small container");
+											shipment.setBounds(220, 60, 180, 20);
+											shipment.setForeground(Color.BLUE);
+											panel2.add(shipment);
+											if (totalWeight(items) <= 500) {
+												JLabel getcost1 = new JLabel("Cost:");
+												getcost1.setBounds(80, 120, 100, 20);
+												panel2.add(getcost1);
+												JLabel cost1 = new JLabel("1000 Euros");
+												cost1.setBounds(220, 120, 180, 20);
+												cost1.setForeground(Color.BLUE);
+												panel2.add(cost1);
+											}
+											else {
+												JLabel getcost2 = new JLabel("Cost:");
+												getcost2.setBounds(80, 120, 100, 20);
+												panel2.add(getcost2);
+												JLabel cost2 = new JLabel("1200 Euros");
+												cost2.setBounds(220, 120, 180, 20);
+												cost2.setForeground(Color.BLUE);
+												panel2.add(cost2);
+											}
+										} else {
+											Container Big = new Container("big");
+											Container Small = new Container("small");
+											double volumeBig = Big.volume();
+											double volumeSmall = Small.volume();
+											
+											int numBig = (int) (totalVolume(items) / volumeBig);
+											if (totalVolume(items) - (numBig * volumeBig) <= volumeSmall) {
+												// shipment
+												JLabel getshipment = new JLabel("Shipment:");
+												getshipment.setBounds(80, 60, 100, 20);
+												panel2.add(getshipment);
+												JLabel shipment1 = new JLabel("1 small container");
+												shipment1.setBounds(220, 60, 180, 20);
+												shipment1.setForeground(Color.BLUE);
+												panel2.add(shipment1);
+												JLabel shipment2 = new JLabel(numBig + " big containers");
+												shipment2.setBounds(220, 90, 180, 20);
+												shipment2.setForeground(Color.BLUE);
+												panel2.add(shipment2);
+												// cost
+												JLabel getcost1 = new JLabel("Cost:");
+												getcost1.setBounds(80, 120, 100, 20);
+												panel2.add(getcost1);
+												JLabel cost1 = new JLabel((1200 + numBig * 1800) + " or " +  (1000 + numBig * 1800) + " Euros");
+												cost1.setBounds(220, 120, 180, 20);
+												cost1.setForeground(Color.BLUE);
+												panel2.add(cost1);
+											} else {
+												// shipment
+												JLabel getshipment = new JLabel("Shipment:");
+												getshipment.setBounds(80, 60, 100, 20);
+												panel2.add(getshipment);
+												JLabel shipment1 = new JLabel((numBig + 1) + " big containers");
+												shipment1.setBounds(220, 60, 180, 20);
+												shipment1.setForeground(Color.BLUE);
+												panel2.add(shipment1);
+												// cost
+												JLabel getcost1 = new JLabel("Cost:");
+												getcost1.setBounds(80, 120, 100, 20);
+												panel2.add(getcost1);
+												JLabel cost1 = new JLabel(((numBig + 1) * 1800) + " Euros");
+												cost1.setBounds(220, 120, 180, 20);
+												cost1.setForeground(Color.BLUE);
+												panel2.add(cost1);
+											}
+										}
+										
+										frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+										frame2.setVisible(true);
 									}
 								});
 								
@@ -279,6 +401,26 @@ public class testMain {
 				weight += order[i].getmWeight() * order[i].getmQuantity();
 			}
 			return weight;
+		}
+	}
+	
+	public static void calculateShipping(double volume) {
+		if (volume <= 0) System.out.println("Volume cannot be less than or equal to 0. Enter a new volume.");
+		Container big = new Container("big");
+		Container small = new Container("small");
+		double volumeBig = big.volume();
+		double volumeSmall = small.volume();
+		
+		int numBig = (int) (volume / volumeBig);
+		if (volume - (numBig * volumeBig) <= volumeSmall) {
+			System.out.println("The shipment of volume " + volume + " meters cubed fits into " + numBig +
+					" big containers and one small container.");
+			System.out.println("The total shipping cost is " + (1200 + numBig * 1800) +
+					" or " +  (1000 + numBig * 1800) + " Euros depending on shipping.");
+		} else {
+			System.out.println("The shipment of volume " + volume + " meters cubed fits into " + (numBig + 1) +
+					" big containers.");
+			System.out.println("The total shipping cost is " + ((numBig + 1) * 1800) + " Euros.");
 		}
 	}
 

@@ -43,15 +43,18 @@ public class Item {
 		} else if (mQuantity < 0) {
 			throw new IllegalArgumentException("Quantity cannot be negative.");
 		} else {
-			if (mShape.equals("Cubic") || mShape.equals("Rectangle")) {
-				for (int i = 0; i < mDimensions.length; i++) {
+			if (mShape.equals("Cubic")) {
+				volume = mDimensions[0] * mDimensions[0] * mDimensions[0];
+				return volume * mQuantity;
+			}else if(mShape.equals("Rectangle")) {
+				for (int i = 0; i < 3; i++) {
 					volume *= mDimensions[i];
 				}
 				return volume * mQuantity;
 			}else if (mShape.equals("Cylinder")) {
 				double radius = mDimensions[0];
 				double height = mDimensions[1];
-				return Math.PI * (radius / 2) * (radius / 2) * height * mQuantity;
+				return Math.PI * radius * radius * height * mQuantity;
 			}else if (mShape.equals("Pentagon")) {
 				double radius = mDimensions[0];
 				double length = mDimensions[1];
