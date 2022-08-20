@@ -403,25 +403,5 @@ public class testMain {
 			return weight;
 		}
 	}
-	
-	public static void calculateShipping(double volume) {
-		if (volume <= 0) System.out.println("Volume cannot be less than or equal to 0. Enter a new volume.");
-		Container big = new Container("big");
-		Container small = new Container("small");
-		double volumeBig = big.volume();
-		double volumeSmall = small.volume();
-		
-		int numBig = (int) (volume / volumeBig);
-		if (volume - (numBig * volumeBig) <= volumeSmall) {
-			System.out.println("The shipment of volume " + volume + " meters cubed fits into " + numBig +
-					" big containers and one small container.");
-			System.out.println("The total shipping cost is " + (1200 + numBig * 1800) +
-					" or " +  (1000 + numBig * 1800) + " Euros depending on shipping.");
-		} else {
-			System.out.println("The shipment of volume " + volume + " meters cubed fits into " + (numBig + 1) +
-					" big containers.");
-			System.out.println("The total shipping cost is " + ((numBig + 1) * 1800) + " Euros.");
-		}
-	}
 
 }
